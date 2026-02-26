@@ -1,9 +1,9 @@
-package mailservice.mailclient;
+package mailservice.mailclient.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class Controller {
+public class InboxController {
     @FXML
     private Label formatWarning;
 
