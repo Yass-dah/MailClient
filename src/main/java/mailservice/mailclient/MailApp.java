@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import mailservice.mailclient.controller.InboxController;
 import mailservice.mailclient.controller.LoginController;
 import mailservice.mailclient.controller.SenderController;
+import mailservice.mailclient.model.Mail;
 import mailservice.mailclient.model.MailModel;
 
 import java.io.IOException;
@@ -22,13 +23,18 @@ public class MailApp extends Application {
     public void start(Stage stage) throws IOException {
         model = new MailModel();
         mainStage = stage;
+        login();
+    }
+
+    public void login() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MailApp.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         LoginController controller = fxmlLoader.getController();
         controller.setMain(this);
-        stage.setTitle("Mail Login");
-        stage.setScene(scene);
-        stage.show();
+        controller.setModel(model);
+        mainStage.setTitle("Mail Login");
+        mainStage.setScene(scene);
+        mainStage.show();
     }
 
     // scena = inbox
@@ -38,6 +44,7 @@ public class MailApp extends Application {
         InboxController controller = fxmlLoader.getController();
         controller.setMain(this);
         controller.setModel(model);
+        controller.bindProperties();
         mainStage.setTitle("Your mail inbox");
         mainStage.setScene(scene);
         mainStage.show();
@@ -45,12 +52,15 @@ public class MailApp extends Application {
     }
 
     // scena = sender
-    public void sender() throws IOException {
+    public void sender(Mail mail) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MailApp.class.getResource("send-view.fxml"));
+        String title = (mail == null) ? "Send a mail" : "Forward a mail";
         Scene scene = new Scene(fxmlLoader.load());
         SenderController controller = fxmlLoader.getController();
         controller.setMain(this);
-        mainStage.setTitle("Send a mail");
+        if(mail != null)
+            controller.forwardMail(mail);
+        mainStage.setTitle(title);
         mainStage.setScene(scene);
         mainStage.show();
         mainStage.centerOnScreen();

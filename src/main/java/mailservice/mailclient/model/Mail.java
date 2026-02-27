@@ -1,26 +1,28 @@
 package mailservice.mailclient.model;
 
-import javafx.beans.property.SimpleLongProperty;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Mail {
     private SimpleLongProperty id;
     private SimpleStringProperty from;
-    private ArrayList<String> to;
+    private SimpleListProperty<String> to;
     private SimpleStringProperty subject;
     private SimpleStringProperty body;
-    private LocalDateTime date;
+    private ObjectProperty<LocalDateTime> date;
 
     // costruttore
     public Mail() {
         this.id = new SimpleLongProperty();
         this.from = new SimpleStringProperty();
-        this.to = new ArrayList<>();
+        this.to = new SimpleListProperty<>(FXCollections.observableArrayList());
         this.subject = new SimpleStringProperty();
         this.body = new SimpleStringProperty();
-        this.date = LocalDateTime.now();
+        this.date = new SimpleObjectProperty<>(LocalDateTime.now());
     }
 
     // Getters & Setters
@@ -48,12 +50,16 @@ public class Mail {
         this.from.set(from);
     }
 
-    public ArrayList<String> getTo() {
+    public ObservableList<String> getTo() {
         return to;
     }
 
-    public void setTo(ArrayList<String> to) {
-        this.to = to;
+    public SimpleListProperty<String> toProperty() {
+        return to;
+    }
+
+    public void setTo(ObservableList<String> list) {
+        this.to.set(list);
     }
 
     public String getSubject() {
@@ -81,11 +87,15 @@ public class Mail {
     }
 
     public LocalDateTime getDate() {
+        return date.get();
+    }
+
+    public ObjectProperty<LocalDateTime> dateProperty() {
         return date;
     }
 
     public void setDate(LocalDateTime date) {
-        this.date = date;
+        this.date.set(date);
     }
 
     // mail operation methods

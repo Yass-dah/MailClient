@@ -1,5 +1,7 @@
 package mailservice.mailclient.controller;
 
+import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -23,7 +25,7 @@ public class InboxController {
     private Label connection;
 
     @FXML
-    private ListView inboxList;
+    private ListView<Mail> inboxList;
 
     @FXML
     private Label mailDate;
@@ -40,9 +42,17 @@ public class InboxController {
     @FXML
     private Label mailText;
 
-    // Setters
+    // Getters & 0Setters
+    public MailApp getMain() {
+        return main;
+    }
+
     public void setMain(MailApp main) {
         this.main = main;
+    }
+
+    public MailModel getModel() {
+        return model;
     }
 
     public void setModel(MailModel model) {
@@ -56,7 +66,7 @@ public class InboxController {
         Mail mail = new Mail();
         mail.setId(1);
         mail.setFrom("prof@uni.it");
-        mail.setTo(new ArrayList<String>(Collections.singleton("studente@uni.it")));
+        mail.setTo(FXCollections.observableList(new ArrayList<String>(Collections.singleton("studente@uni.it"))));
         mail.setSubject("Esame");
         mail.setBody("Domani alle 9");
         mail.setDate(LocalDateTime.now());
@@ -65,7 +75,7 @@ public class InboxController {
         Mail mail2 = new Mail();
         mail2.setId(1);
         mail2.setFrom("prof2@uni.it");
-        mail2.setTo(new ArrayList<String>(Collections.singleton("studente@uni.it")));
+        mail2.setTo(FXCollections.observableList(new ArrayList<String>(Collections.singleton("studente@uni.it"))));
         mail2.setSubject("Esame");
         mail2.setBody("Domani alle 11");
         mail2.setDate(LocalDateTime.now());
@@ -76,20 +86,68 @@ public class InboxController {
     protected void onDeleteButtonClick() {}
 
     @FXML
-    protected void onReplyButtonClick() {}
+    protected void onReplyButtonClick() {
+        if(mailText.getText() == null || mailText.getText().isBlank()) return;
+        Mail mail = model.getReplyMail(senderEmail.getText());
+        try{
+            main.sender(mail);
+        } catch (IOException e){
+            System.err.println(e.getMessage());
+        }
+    }
 
     @FXML
-    protected void onReplyAllButtonClick() {}
+    protected void onReplyAllButtonClick() {
+        if(mailText.getText() == null || mailText.getText().isBlank()) return;
+        Mail mail = model.getReplyAllMail(senderEmail.getText());
+        try{
+            main.sender(mail);
+        } catch (IOException e){
+            System.err.println(e.getMessage());
+        }
+    }
 
     @FXML
-    protected void onForwardButtonClick() {}
+    protected void onForwardButtonClick() {
+        if(mailText.getText() == null || mailText.getText().isBlank()) return;
+        Mail mail = model.getForwardMail(mailSubject.getText(), mailText.getText());
+        try{
+            main.sender(mail);
+        } catch (IOException e){
+            System.err.println(e.getMessage());
+        }
+    }
 
     @FXML
     protected void onNewMailButtonClick() {
         try{
-            main.sender();
+            main.sender(null);
         } catch (IOException e){
             System.err.println(e.getMessage());
         }
+    }
+
+    public void bindProperties(){
+        if(model == null) return;
+        currentEmail.textProperty().bind(model.emailProperty());
+        inboxList.getSelectionModel().selectedItemProperty().addListener((obs, oldMail, newMail) -> {
+            if(oldMail != null){
+                mailDate.textProperty().unbind();
+                mailSubject.textProperty().unbind();
+                senderEmail.textProperty().unbind();
+                receiverEmail.textProperty().unbind();
+                mailText.textProperty().unbind();
+            }
+            if(newMail != null){
+                mailDate.textProperty().bind(newMail.dateProperty().asString());
+                mailSubject.textProperty().bind(newMail.subjectProperty());
+                senderEmail.textProperty().bind(newMail.fromProperty());
+                receiverEmail.textProperty().bind(Bindings.createStringBinding(
+                        () -> String.join(", ", newMail.getTo()),
+                        newMail.toProperty()
+                ));
+                mailText.textProperty().bind(newMail.bodyProperty());
+            }
+        });
     }
 }

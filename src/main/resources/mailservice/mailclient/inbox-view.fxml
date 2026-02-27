@@ -56,15 +56,15 @@
                     <children>
                         <Separator prefHeight="5.0" prefWidth="330.0" />
                         <Label text="Date:" />
-                        <Label fx:id="mailDate" text="today" />
+                        <Label fx:id="mailDate"/>
                         <Label text="Subject:" />
-                        <Label fx:id="mailSubject" text="mail" />
+                        <Label fx:id="mailSubject"/>
                         <Label text="From:" />
-                        <Label fx:id="senderEmail" text="Me" />
+                        <Label fx:id="senderEmail"/>
                         <Label text="To:" />
-                        <Label fx:id="receiverEmail" text="You" />
+                        <Label fx:id="receiverEmail"/>
                         <Separator prefHeight="5.0" prefWidth="330.0" />
-                        <Label fx:id="mailText" text="Text" />
+                        <Label fx:id="mailText"/>
                     </children>
                 </VBox>
                 <Separator layoutX="398.0" layoutY="41.0" orientation="VERTICAL" prefHeight="359.0" prefWidth="10.0" />

@@ -4,6 +4,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MailModel {
     private SimpleStringProperty email;
     private ObservableList<Mail> inbox;
@@ -42,6 +45,32 @@ public class MailModel {
 
     public void removeMail(Mail mail) {
         inbox.remove(mail);
+    }
+
+    // forward mail initializer
+    public Mail getForwardMail(String subject, String body) {
+        Mail mail = new Mail();
+        mail.setFrom(email.get());
+        mail.setSubject(subject);
+        mail.setBody(body);
+        return mail;
+    }
+
+    // INCOMPLETO
+    // reply mail initializer
+    public Mail getReplyMail(String to) {
+        Mail mail = new Mail();
+        mail.setFrom(email.get());
+        mail.setTo(FXCollections.observableArrayList(List.of(to)));
+        return mail;
+    }
+
+    // reply all mail initializer
+    public Mail getReplyAllMail(String to) {
+        Mail mail = new Mail();
+        mail.setFrom(email.get());
+        mail.setTo(FXCollections.observableArrayList(List.of(to)));
+        return mail;
     }
 
     // stampa
