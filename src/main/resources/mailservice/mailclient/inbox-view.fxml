@@ -17,7 +17,7 @@
             <children>
                 <HBox alignment="TOP_CENTER" layoutY="4.0" prefHeight="43.0" prefWidth="730.0">
                     <children>
-                        <Label prefHeight="19.0" prefWidth="130.0" text="name@mail.com">
+                        <Label fx:id="currentEmail" prefHeight="19.0" prefWidth="130.0" text="name@mail.com">
                             <HBox.margin>
                                 <Insets left="10.0" top="5.0" />
                             </HBox.margin>
@@ -25,20 +25,17 @@
                                 <Font size="13.0" />
                             </font>
                         </Label>
-                        <Label prefHeight="18.0" prefWidth="114.0" text="Not connected"  textFill="RED">
+                        <Label fx:id="connection" prefHeight="18.0" prefWidth="114.0" text="Not connected"  textFill="RED">
                             <HBox.margin>
                                 <Insets top="6.0" />
                             </HBox.margin>
                         </Label>
-                        <Button maxHeight="12.0" mnemonicParsing="false" prefHeight="12.0" prefWidth="54.0" text="Logout">
+                        <Button maxHeight="12.0" mnemonicParsing="false" prefHeight="12.0" prefWidth="54.0" text="Logout" focusTraversable="false" onAction="#onLogoutButtonClick">
                             <HBox.margin>
                                 <Insets left="400.0" top="5.0" />
                             </HBox.margin>
                         </Button>
                     </children>
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
                 </HBox>
                 <VBox layoutX="8.0" layoutY="41.0" prefHeight="359.0" prefWidth="387.0">
                     <children>
@@ -48,7 +45,7 @@
                                 <Insets left="10.0" top="5.0" />
                             </VBox.margin>
                         </Label>
-                        <ListView maxHeight="1.7976931348623157E308" prefHeight="330.0" prefWidth="398.0">
+                        <ListView fx:id="inboxList" maxHeight="1.7976931348623157E308" prefHeight="330.0" prefWidth="398.0" focusTraversable="true">
                             <VBox.margin>
                                 <Insets left="5.0" right="5.0" top="5.0" />
                             </VBox.margin>
@@ -58,14 +55,16 @@
                 <VBox layoutX="409.0" layoutY="41.0" prefHeight="359.0" prefWidth="315.0">
                     <children>
                         <Separator prefHeight="5.0" prefWidth="330.0" />
-                        <Label text="Object:" />
-                        <Label text="Mail" />
+                        <Label text="Date:" />
+                        <Label fx:id="mailDate" text="today" />
+                        <Label text="Subject:" />
+                        <Label fx:id="mailSubject" text="mail" />
                         <Label text="From:" />
-                        <Label text="Me" />
+                        <Label fx:id="senderEmail" text="Me" />
                         <Label text="To:" />
-                        <Label text="You" />
+                        <Label fx:id="receiverEmail" text="You" />
                         <Separator prefHeight="5.0" prefWidth="330.0" />
-                        <Label text="Text" />
+                        <Label fx:id="mailText" text="Text" />
                     </children>
                 </VBox>
                 <Separator layoutX="398.0" layoutY="41.0" orientation="VERTICAL" prefHeight="359.0" prefWidth="10.0" />
@@ -74,12 +73,12 @@
                     <children>
                         <ButtonBar prefHeight="50.0" prefWidth="619.0">
                             <buttons>
-                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="139.0" text="DELETE" />
-                                <Button mnemonicParsing="false" text="REPLY" />
-                                <Button mnemonicParsing="false" text="REPLY ALL" />
-                                <Button mnemonicParsing="false" text="FORWARD" />
-                                <Separator minWidth="43.0" orientation="VERTICAL" prefHeight="44.0" />
-                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="161.0" text="NEW MAIL" />
+                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="139.0" text="DELETE" onAction="#onDeleteButtonClick"/>
+                                <Button mnemonicParsing="false" text="REPLY" onAction="#onReplyButtonClick"/>
+                                <Button mnemonicParsing="false" text="REPLY ALL" onAction="#onReplyAllButtonClick"/>
+                                <Button mnemonicParsing="false" text="FORWARD" onAction="#onForwardButtonClick"/>
+                                <Separator minWidth="43.0" orientation="VERTICAL" prefHeight="44.0"/>
+                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="161.0" text="NEW MAIL" onAction="#onNewMailButtonClick"/>
                             </buttons>
                         </ButtonBar>
                     </children>

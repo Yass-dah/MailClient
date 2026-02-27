@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import mailservice.mailclient.controller.InboxController;
 import mailservice.mailclient.controller.LoginController;
+import mailservice.mailclient.controller.SenderController;
+import mailservice.mailclient.model.MailModel;
 
 import java.io.IOException;
 
@@ -13,10 +15,12 @@ import java.io.IOException;
 public class MailApp extends Application {
     // main stage non statico che usa diverse scene
     private Stage mainStage;
+    private MailModel model;
 
     // start con la pagina di login, scena = login
     @Override
     public void start(Stage stage) throws IOException {
+        model = new MailModel();
         mainStage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(MailApp.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
@@ -32,7 +36,21 @@ public class MailApp extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(MailApp.class.getResource("inbox-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         InboxController controller = fxmlLoader.getController();
+        controller.setMain(this);
+        controller.setModel(model);
         mainStage.setTitle("Your mail inbox");
+        mainStage.setScene(scene);
+        mainStage.show();
+        mainStage.centerOnScreen();
+    }
+
+    // scena = sender
+    public void sender() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(MailApp.class.getResource("send-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        SenderController controller = fxmlLoader.getController();
+        controller.setMain(this);
+        mainStage.setTitle("Send a mail");
         mainStage.setScene(scene);
         mainStage.show();
         mainStage.centerOnScreen();
