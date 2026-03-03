@@ -10,7 +10,8 @@ import mailservice.mailclient.model.MailModel;
 import java.io.IOException;
 
 public class SenderController {
-    private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+    private static final String receiversFormat =
+            "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}(,[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})*$";
     private MailApp main;
     private MailModel model;
 
@@ -18,7 +19,7 @@ public class SenderController {
     private TextField mailSubject;
 
     @FXML
-    private TextField senderEmail;
+    private Label senderEmail;
 
     @FXML
     private TextField receiverEmail;
@@ -52,17 +53,21 @@ public class SenderController {
     // Gestori eventi
     @FXML
     protected void onSendButtonClick() {
-        try{
-            main.inbox();
-        } catch (IOException e){
-            System.err.println(e.getMessage());
-        }
+        if(receiverEmail != null && receiverEmail.getText().matches(receiversFormat)) {
+            try {
+                main.inbox();
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
+        } else formatWarning.setText("Please enter valid addresses divided by a ','");
     }
 
-    public void forwardMail(Mail mail){
-        submit.setText("FORWARD");
-        senderEmail.setText(mail.getFrom());
-        mailSubject.setText(mail.getSubject());
-        mailText.setText(mail.getBody());
+    public void initMail(Mail mail){
+        senderEmail.setText(model.getEmail());
+        mailSubject.setFocusTraversable(mail.getSubject() == null ? true : false);
+        submit.setText(mail.getSubject() == null ? "SEND" : "FORWARD");
+        receiverEmail.setText(mail.getTo() == null ? "" : mail.getTo());
+        mailSubject.setText(mail.getSubject() == null ? "" : mail.getSubject());
+        mailText.setText(mail.getBody() == null ? "" : mail.getBody());
     }
 }

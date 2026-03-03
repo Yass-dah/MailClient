@@ -9,7 +9,7 @@ import mailservice.mailclient.model.MailModel;
 import java.io.IOException;
 
 public class LoginController {
-    private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+    private static final String emailFormat = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
     private MailApp main;
     private MailModel model;
 
@@ -32,7 +32,7 @@ public class LoginController {
     @FXML
     protected void onLoginButtonClick() {
         String email = this.email.getText();
-        if(email != null && email.matches(EMAIL_REGEX)) {
+        if(email != null && email.matches(emailFormat)) {
             initUser(email);
             try {
                 main.inbox();

@@ -4,7 +4,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MailModel {
@@ -61,7 +60,7 @@ public class MailModel {
     public Mail getReplyMail(String to) {
         Mail mail = new Mail();
         mail.setFrom(email.get());
-        mail.setTo(FXCollections.observableArrayList(List.of(to)));
+        mail.setTo(to);
         return mail;
     }
 
@@ -69,7 +68,13 @@ public class MailModel {
     public Mail getReplyAllMail(String to) {
         Mail mail = new Mail();
         mail.setFrom(email.get());
-        mail.setTo(FXCollections.observableArrayList(List.of(to)));
+        mail.setTo(to);
+        return mail;
+    }
+
+    public Mail getSendMail() {
+        Mail mail = new Mail();
+        mail.setFrom(email.get());
         return mail;
     }
 

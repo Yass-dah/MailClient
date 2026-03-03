@@ -1,25 +1,23 @@
 package mailservice.mailclient.model;
 
 import javafx.beans.property.*;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public class Mail {
     private SimpleLongProperty id;
     private SimpleStringProperty from;
-    private SimpleListProperty<String> to;
+    private SimpleStringProperty to;
     private SimpleStringProperty subject;
     private SimpleStringProperty body;
     private ObjectProperty<LocalDateTime> date;
 
-    // costruttore
+    // costruttori
     public Mail() {
         this.id = new SimpleLongProperty();
         this.from = new SimpleStringProperty();
-        this.to = new SimpleListProperty<>(FXCollections.observableArrayList());
+        this.to = new SimpleStringProperty();
         this.subject = new SimpleStringProperty();
         this.body = new SimpleStringProperty();
         this.date = new SimpleObjectProperty<>(LocalDateTime.now());
@@ -50,16 +48,16 @@ public class Mail {
         this.from.set(from);
     }
 
-    public ObservableList<String> getTo() {
+    public String getTo() {
+        return to.get();
+    }
+
+    public SimpleStringProperty toProperty() {
         return to;
     }
 
-    public SimpleListProperty<String> toProperty() {
-        return to;
-    }
-
-    public void setTo(ObservableList<String> list) {
-        this.to.set(list);
+    public void setTo(String to) {
+        this.to.set(to);
     }
 
     public String getSubject() {
@@ -98,13 +96,9 @@ public class Mail {
         this.date.set(date);
     }
 
-    // mail operation methods
-    public void add(String to) {
-        this.to.add(to);
-    }
-
-    public void remove(String to) {
-        this.to.remove(to);
+    // inizializzatori
+    public void initDateNow(){
+        setDate(LocalDateTime.now());
     }
 
     // stampa

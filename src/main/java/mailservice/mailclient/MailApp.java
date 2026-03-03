@@ -54,12 +54,12 @@ public class MailApp extends Application {
     // scena = sender
     public void sender(Mail mail) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MailApp.class.getResource("send-view.fxml"));
-        String title = (mail == null) ? "Send a mail" : "Forward a mail";
+        String title = "Send a mail";
         Scene scene = new Scene(fxmlLoader.load());
         SenderController controller = fxmlLoader.getController();
         controller.setMain(this);
-        if(mail != null)
-            controller.forwardMail(mail);
+        controller.setModel(model);
+        controller.initMail(mail);
         mainStage.setTitle(title);
         mainStage.setScene(scene);
         mainStage.show();

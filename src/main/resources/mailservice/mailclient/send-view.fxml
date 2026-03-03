@@ -14,13 +14,13 @@
                 <Label layoutX="31.0" layoutY="34.0" text="Subject:" />
                 <Label layoutX="31.0" layoutY="70.0" text="From:" />
                 <Label layoutX="31.0" layoutY="110.0" text="To:" />
-                <TextField fx:id="mailSubject" layoutX="87.0" layoutY="30.0" prefHeight="26.0" prefWidth="364.0" />
-                <TextField fx:id="senderEmail" layoutX="87.0" layoutY="66.0" prefHeight="26.0" prefWidth="364.0" />
-                <TextField fx:id="receiverEmail" layoutX="87.0" layoutY="106.0" prefHeight="26.0" prefWidth="364.0" />
+                <TextField fx:id="mailSubject" layoutX="87.0" layoutY="30.0" prefHeight="26.0" prefWidth="364.0"/>
+                <Label fx:id="senderEmail" layoutX="87.0" layoutY="66.0" prefHeight="26.0" prefWidth="364.0" />
+                <TextField fx:id="receiverEmail" layoutX="87.0" layoutY="106.0" prefHeight="26.0" prefWidth="364.0"/>
                 <TextField fx:id="mailText" layoutX="39.0" layoutY="175.0" prefHeight="176.0" prefWidth="414.0" />
                 <Separator layoutX="23.0" layoutY="168.0" prefHeight="6.0" prefWidth="436.0" />
                 <Button fx:id="submit" layoutX="218.0" layoutY="360.0" mnemonicParsing="false" text="SEND" onAction="#onSendButtonClick"/>
-                <Label fx:id="formatWarning" layoutX="164.0" layoutY="140.0" prefHeight="18.0" prefWidth="199.0" text="please enter a valid format" />
+                <Label fx:id="formatWarning" layoutX="132.0" layoutY="140.0" prefHeight="18.0" prefWidth="250.0" textFill="RED"/>
             </children>
         </AnchorPane>
     </children>
