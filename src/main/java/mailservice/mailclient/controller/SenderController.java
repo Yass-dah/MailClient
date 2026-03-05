@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import mailservice.mailclient.MailApp;
 import mailservice.mailclient.model.Mail;
 import mailservice.mailclient.model.MailModel;
+import mailservice.mailclient.network.Client;
+
 import java.io.IOException;
 
 public class SenderController {
@@ -14,6 +16,10 @@ public class SenderController {
             "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}(,[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})*$";
     private MailApp main;
     private MailModel model;
+    private Client client;
+
+    @FXML
+    private Label emptyWarning;
 
     @FXML
     private TextField mailSubject;
@@ -50,21 +56,40 @@ public class SenderController {
         this.model = model;
     }
 
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     // Gestori eventi
     @FXML
     protected void onSendButtonClick() {
-        if(receiverEmail != null && receiverEmail.getText().matches(receiversFormat)) {
+        boolean validSubject = mailSubject != null && !mailSubject.getText().isEmpty();
+        boolean validBody = mailText != null && !mailText.getText().isEmpty();
+        boolean validReceivers = receiverEmail != null && receiverEmail.getText().matches(receiversFormat);
+        if(!validReceivers) formatWarning.setText("Please enter valid addresses divided by a ','");
+        else if (!validSubject || !validBody) emptyWarning.setText("Subject and Body cannot be empty");
+        else{
             try {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        client.sendMail(model.getEmail(), receiverEmail.getText(), mailSubject.getText(), mailText.getText());
+                    }
+                }).start();
                 main.inbox();
             } catch (IOException e) {
                 System.err.println(e.getMessage());
             }
-        } else formatWarning.setText("Please enter valid addresses divided by a ','");
+        }
     }
 
     public void initMail(Mail mail){
         senderEmail.setText(model.getEmail());
-        mailSubject.setFocusTraversable(mail.getSubject() == null ? true : false);
+        mailSubject.setFocusTraversable(mail.getSubject() == null);
         submit.setText(mail.getSubject() == null ? "SEND" : "FORWARD");
         receiverEmail.setText(mail.getTo() == null ? "" : mail.getTo());
         mailSubject.setText(mail.getSubject() == null ? "" : mail.getSubject());

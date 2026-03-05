@@ -19,6 +19,7 @@
                 <TextField fx:id="receiverEmail" layoutX="87.0" layoutY="106.0" prefHeight="26.0" prefWidth="364.0"/>
                 <TextField fx:id="mailText" layoutX="39.0" layoutY="175.0" prefHeight="176.0" prefWidth="414.0" />
                 <Separator layoutX="23.0" layoutY="168.0" prefHeight="6.0" prefWidth="436.0" />
+                <Label fx:id="emptyWarning" layoutX="155.0" layoutY="5.0" prefHeight="18.0" prefWidth="250.0" textFill="RED"/>
                 <Button fx:id="submit" layoutX="218.0" layoutY="360.0" mnemonicParsing="false" text="SEND" onAction="#onSendButtonClick"/>
                 <Label fx:id="formatWarning" layoutX="132.0" layoutY="140.0" prefHeight="18.0" prefWidth="250.0" textFill="RED"/>
             </children>

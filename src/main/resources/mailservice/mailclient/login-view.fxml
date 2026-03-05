@@ -23,6 +23,11 @@
             <Font size="11.0" />
           </font>
         </Label>
+        <Label fx:id="serverWarning" layoutX="168.0" layoutY="165.0" textFill="#d70000">
+          <font>
+            <Font size="11.0" />
+          </font>
+        </Label>
       </children>
     </AnchorPane>
   </children>

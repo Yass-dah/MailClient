@@ -4,8 +4,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.List;
-
 public class MailModel {
     private SimpleStringProperty email;
     private ObservableList<Mail> inbox;

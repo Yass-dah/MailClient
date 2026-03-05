@@ -9,7 +9,7 @@ import mailservice.mailclient.controller.LoginController;
 import mailservice.mailclient.controller.SenderController;
 import mailservice.mailclient.model.Mail;
 import mailservice.mailclient.model.MailModel;
-
+import mailservice.mailclient.network.Client;
 import java.io.IOException;
 
 // main che verra passato dinamicamente al controller una volta loadata la scena e ottenuto i controller
@@ -17,12 +17,18 @@ public class MailApp extends Application {
     // main stage non statico che usa diverse scene
     private Stage mainStage;
     private MailModel model;
+    private Client client;
+    private Thread connectionChecker;
 
     // start con la pagina di login, scena = login
     @Override
     public void start(Stage stage) throws IOException {
         model = new MailModel();
         mainStage = stage;
+        client = new Client();
+        new Thread(() -> client.connect()).start();
+        connectionChecker = new Thread(client.getConnectionLooper());
+        connectionChecker.start();
         login();
     }
 
@@ -32,6 +38,7 @@ public class MailApp extends Application {
         LoginController controller = fxmlLoader.getController();
         controller.setMain(this);
         controller.setModel(model);
+        controller.setClient(client);
         mainStage.setTitle("Mail Login");
         mainStage.setScene(scene);
         mainStage.show();
@@ -44,6 +51,7 @@ public class MailApp extends Application {
         InboxController controller = fxmlLoader.getController();
         controller.setMain(this);
         controller.setModel(model);
+        controller.setClient(client);
         controller.bindProperties();
         mainStage.setTitle("Your mail inbox");
         mainStage.setScene(scene);
@@ -59,6 +67,7 @@ public class MailApp extends Application {
         SenderController controller = fxmlLoader.getController();
         controller.setMain(this);
         controller.setModel(model);
+        controller.setClient(client);
         controller.initMail(mail);
         mainStage.setTitle(title);
         mainStage.setScene(scene);

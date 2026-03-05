@@ -4,16 +4,18 @@ import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.paint.Paint;
 import mailservice.mailclient.MailApp;
 import mailservice.mailclient.model.Mail;
 import mailservice.mailclient.model.MailModel;
+import mailservice.mailclient.network.Client;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 public class InboxController {
     private MailApp main;
     private MailModel model;
+    private Client client;
 
     @FXML
     private Label currentEmail;
@@ -39,7 +41,7 @@ public class InboxController {
     @FXML
     private Label mailText;
 
-    // Getters & 0Setters
+    // Getters & Setters
     public MailApp getMain() {
         return main;
     }
@@ -57,26 +59,23 @@ public class InboxController {
         inboxList.setItems(model.getInbox()); // Binding
     }
 
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     // Gestori eventi
     @FXML
     protected void onLogoutButtonClick() {
-        Mail mail = new Mail();
-        mail.setId(1);
-        mail.setFrom("prof@uni.it");
-        mail.setTo("studente@uni.it");
-        mail.setSubject("Esame");
-        mail.setBody("Domani alle 9");
-        mail.setDate(LocalDateTime.now());
-        model.getInbox().add(mail);
-
-        Mail mail2 = new Mail();
-        mail2.setId(1);
-        mail2.setFrom("prof2@uni.it");
-        mail2.setTo("studente@uni.it");
-        mail2.setSubject("Esame");
-        mail2.setBody("Domani alle 11");
-        mail2.setDate(LocalDateTime.now());
-        model.getInbox().add(mail2);
+        client.disconnect();
+        try{
+            main.login();
+        } catch(IOException e){
+            System.err.println(e.getMessage());
+        }
     }
 
     @FXML
@@ -127,6 +126,12 @@ public class InboxController {
 
     public void bindProperties(){
         if(model == null) return;
+        if (client != null && client.getConnectionLooper() != null) {
+            client.getConnectionLooper().reachableProperty().addListener((obs, oldValue, newValue) -> {
+                connection.setTextFill(Paint.valueOf(newValue ? "#06A106" : "#d70000"));
+                connection.setText(newValue ? "Online" : "Offline");
+            });// stato connessione : online - offline
+        }
         currentEmail.textProperty().bind(model.emailProperty());
         inboxList.getSelectionModel().selectedItemProperty().addListener((obs, oldMail, newMail) -> {
             if(oldMail != null){
