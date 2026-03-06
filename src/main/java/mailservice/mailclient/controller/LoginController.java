@@ -1,5 +1,6 @@
 package mailservice.mailclient.controller;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
@@ -46,6 +47,7 @@ public class LoginController {
             return;
         }
         formatWarning.setText("");
+        System.out.println(client.getConnected());
         boolean mailExists = client.getConnected() && client.checkEmail(email);
         if(!client.getConnected()) {
             Thread conn = new Thread(() -> client.connect());
@@ -64,6 +66,8 @@ public class LoginController {
             serverWarning.setText("Inexistent email");
         else {
             initUser(email);
+            model.setInbox(FXCollections.observableArrayList(client.getInbox(email)));
+            System.out.println("cioadishfh");
             try {
                 main.inbox();
             } catch(IOException e) {
@@ -75,4 +79,6 @@ public class LoginController {
     public void initUser(String email){
         if(model != null) model.setEmail(email);
     }
+
+
 }

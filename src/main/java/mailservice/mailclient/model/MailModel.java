@@ -32,7 +32,7 @@ public class MailModel {
     }
 
     public void setInbox(ObservableList<Mail> inbox) {
-        this.inbox = FXCollections.observableArrayList(inbox);
+        this.inbox = (inbox != null) ? FXCollections.observableArrayList(inbox) : null;
     }
 
     // inbox operation methods
@@ -53,7 +53,6 @@ public class MailModel {
         return mail;
     }
 
-    // INCOMPLETO
     // reply mail initializer
     public Mail getReplyMail(String to) {
         Mail mail = new Mail();

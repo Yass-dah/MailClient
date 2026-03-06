@@ -1,7 +1,6 @@
 package mailservice.mailclient.model;
 
 import javafx.beans.property.*;
-import javafx.collections.ObservableList;
 
 import java.time.LocalDateTime;
 

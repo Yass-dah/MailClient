@@ -5,7 +5,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import mailservice.mailclient.model.Mail;
 
 import java.io.*;
-import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -67,19 +66,15 @@ public class Client {
 
         public void run() {
             while (isRunning()) {
-                boolean flag = false;
-                try (Socket testSocket = new Socket()) {
-                    testSocket.connect(new InetSocketAddress("localhost", 5000), 500);
-                    flag = true;
-                } catch (IOException ignored) {
-                    flag = false;
-                }
-                final boolean x = flag;
-                Platform.runLater(() -> reachable.set(x));
+                boolean status = checkConn();
+                if(!status)
+                    connect();
+                Platform.runLater(() -> reachable.set(status));
+
+                System.out.println("checking server activity..." + reachable.get());
                 try {
                     Thread.sleep(2500);
                 } catch (InterruptedException e) {
-                    System.err.println(e);
                     Thread.currentThread().interrupt();
                     break;
                 }
@@ -98,10 +93,25 @@ public class Client {
         connected = false;
     }
 
+    public synchronized boolean checkConn() {
+        if(out == null || in == null)
+            return false;
+        out.println("0|PING");
+        try {
+            String response = in.readLine();
+            connected = "OK".equals(response);
+        } catch (IOException e) {
+            connected = false;
+        }
+        return getConnected();
+    }
+
     // operation methods
-    public boolean checkEmail(String email){
-        out.println("1|" + email);
+    public synchronized boolean checkEmail(String email){
+        if(!getConnected() || out == null || in == null)
+            return false;
         String response = "";
+        out.println("1|" + email);
         try {
             response = in.readLine();
         } catch (IOException e) {
@@ -111,9 +121,11 @@ public class Client {
         return "OK".equals(response);
     }
 
-    public boolean sendMail(String from, String to, String subject, String body){
-        out.println("2|" + from + "|" + to + "|" + subject + "|" + body);
+    public synchronized boolean sendMail(String from, String to, String subject, String body){
+        if(!getConnected() || out == null || in == null)
+            return false;
         String response = "";
+        out.println("2|" + from + "|" + to + "|" + subject + "|" + body);
         try {
             response = in.readLine();
         } catch (IOException e) {
@@ -123,22 +135,29 @@ public class Client {
         return "MAIL_SENT".equals(response);
     }
 
-    public List<Mail> getInbox(String email) throws IOException {
+    public synchronized List<Mail> getInbox(String email){
         List<Mail> mails = new ArrayList<>();
+        if(!getConnected() || out == null || in == null)
+            return mails;
         out.println("3|" + email);
 
         String line;
-
-        while (!(line = in.readLine()).equals("END"))
-            mails.add(parseMail(line));
-
+        try {
+            while ((line = in.readLine()) != null && !line.equals("END"))
+                mails.add(parseMail(line));
+        } catch(IOException e){
+            connected = false;
+            System.err.println(e);
+        }
         return mails;
     }
 
-    public boolean deleteMail(String email, long id){
-        out.println("4|" + email + "|" + id);
+    public synchronized boolean deleteMail(String email, long id){
+        if(!getConnected() || out == null || in == null)
+            return false;
         String response = "";
         try {
+            out.println("4|" + email + "|" + id);
             response = in.readLine();
         } catch (IOException e) {
             connected = false;
@@ -150,6 +169,7 @@ public class Client {
     private Mail parseMail(String line) {
         String[] parts = line.split("\\|");
 
+        if(parts.length < 6) return null;
         Mail mail = new Mail();
         mail.setId(Long.parseLong(parts[0]));
         mail.setFrom(parts[1]);

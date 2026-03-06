@@ -25,7 +25,7 @@
                                 <Font size="13.0" />
                             </font>
                         </Label>
-                        <Label fx:id="connection" prefHeight="18.0" prefWidth="114.0">
+                        <Label fx:id="connection" prefHeight="18.0" prefWidth="114.0" text="Offline" textFill="#d70000">
                             <HBox.margin>
                                 <Insets top="6.0" />
                             </HBox.margin>

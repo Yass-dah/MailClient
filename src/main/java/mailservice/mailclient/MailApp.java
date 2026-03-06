@@ -42,6 +42,7 @@ public class MailApp extends Application {
         mainStage.setTitle("Mail Login");
         mainStage.setScene(scene);
         mainStage.show();
+        mainStage.centerOnScreen();
     }
 
     // scena = inbox

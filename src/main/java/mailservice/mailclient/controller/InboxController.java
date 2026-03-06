@@ -11,6 +11,7 @@ import mailservice.mailclient.model.MailModel;
 import mailservice.mailclient.network.Client;
 
 import java.io.IOException;
+import java.util.Set;
 
 public class InboxController {
     private MailApp main;
@@ -70,7 +71,8 @@ public class InboxController {
     // Gestori eventi
     @FXML
     protected void onLogoutButtonClick() {
-        client.disconnect();
+        model.setEmail(null);
+        model.setInbox(null);
         try{
             main.login();
         } catch(IOException e){
@@ -126,8 +128,12 @@ public class InboxController {
 
     public void bindProperties(){
         if(model == null) return;
+        System.out.println(model.getInbox());
         if (client != null && client.getConnectionLooper() != null) {
+            connection.setTextFill(Paint.valueOf(client.getConnectionLooper().isReachable() ? "#06A106" : "#d70000"));
+            connection.setText(client.getConnectionLooper().isReachable() ? "Online" : "Offline");
             client.getConnectionLooper().reachableProperty().addListener((obs, oldValue, newValue) -> {
+                System.out.println("REACHABLE CHANGED: " + newValue);
                 connection.setTextFill(Paint.valueOf(newValue ? "#06A106" : "#d70000"));
                 connection.setText(newValue ? "Online" : "Offline");
             });// stato connessione : online - offline
