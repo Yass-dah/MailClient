@@ -11,7 +11,6 @@ import mailservice.mailclient.model.MailModel;
 import mailservice.mailclient.network.Client;
 
 import java.io.IOException;
-import java.util.Set;
 
 public class InboxController {
     private MailApp main;
@@ -133,7 +132,6 @@ public class InboxController {
             connection.setTextFill(Paint.valueOf(client.getConnectionLooper().isReachable() ? "#06A106" : "#d70000"));
             connection.setText(client.getConnectionLooper().isReachable() ? "Online" : "Offline");
             client.getConnectionLooper().reachableProperty().addListener((obs, oldValue, newValue) -> {
-                System.out.println("REACHABLE CHANGED: " + newValue);
                 connection.setTextFill(Paint.valueOf(newValue ? "#06A106" : "#d70000"));
                 connection.setText(newValue ? "Online" : "Offline");
             });// stato connessione : online - offline

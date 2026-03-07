@@ -9,15 +9,23 @@
 
 <VBox prefHeight="269.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/21" fx:controller="mailservice.mailclient.controller.LoginController" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <AnchorPane prefHeight="314.0" prefWidth="640.0">
+    <AnchorPane style="-fx-background-color:#ffffff;-fx-focus-color: grey" prefHeight="314.0" prefWidth="640.0">
       <children>
         <Label layoutX="143.0" layoutY="61.0" text="Enter your email:">
           <font>
-            <Font size="18.0" />
+            <Font name="System bold" size="18.0" />
           </font>
         </Label>
-        <TextField fx:id="email" layoutX="68.0" layoutY="127.0" prefHeight="26.0" prefWidth="283.0" />
-        <Button layoutX="187.0" layoutY="190.0" mnemonicParsing="false" text="Login" onAction="#onLoginButtonClick"/>
+        <TextField fx:id="email" layoutX="68.0" layoutY="127.0" prefHeight="26.0" prefWidth="283.0">
+        <font>
+          <Font name="System Bold"/>
+        </font>
+        </TextField>
+        <Button layoutX="187.0" layoutY="190.0" mnemonicParsing="false" text="Login" onAction="#onLoginButtonClick">
+        <font>
+          <Font name="System Bold"/>
+        </font>
+        </Button>
         <Label fx:id="formatWarning" layoutX="88.0" layoutY="95.0" textFill="#d70000">
           <font>
             <Font size="11.0" />

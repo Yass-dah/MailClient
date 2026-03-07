@@ -13,7 +13,7 @@
 
 <VBox prefHeight="450.0" prefWidth="666.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mailservice.mailclient.controller.InboxController">
     <children>
-        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="441.0" prefWidth="684.0" VBox.vgrow="ALWAYS">
+        <AnchorPane style="-fx-background-color:#ffffff;-fx-focus-color: grey" maxHeight="-1.0" maxWidth="-1.0" prefHeight="441.0" prefWidth="684.0" VBox.vgrow="ALWAYS">
             <children>
                 <HBox alignment="TOP_CENTER" layoutY="4.0" prefHeight="43.0" prefWidth="730.0">
                     <children>
@@ -22,18 +22,24 @@
                                 <Insets left="10.0" top="5.0" />
                             </HBox.margin>
                             <font>
-                                <Font size="13.0" />
+                                <Font name="System bold" size="13.0" />
                             </font>
                         </Label>
                         <Label fx:id="connection" prefHeight="18.0" prefWidth="114.0" text="Offline" textFill="#d70000">
                             <HBox.margin>
                                 <Insets top="6.0" />
                             </HBox.margin>
+                            <font>
+                                <Font name="System Bold"/>
+                            </font>
                         </Label>
-                        <Button maxHeight="12.0" mnemonicParsing="false" prefHeight="12.0" prefWidth="54.0" text="Logout" focusTraversable="false" onAction="#onLogoutButtonClick">
+                        <Button maxHeight="12.0" mnemonicParsing="false" prefHeight="12.0" prefWidth="60.0" text="Logout" focusTraversable="false" onAction="#onLogoutButtonClick">
                             <HBox.margin>
                                 <Insets left="400.0" top="5.0" />
                             </HBox.margin>
+                            <font>
+                                <Font name="System Bold"/>
+                            </font>
                         </Button>
                     </children>
                 </HBox>
@@ -44,6 +50,9 @@
                             <VBox.margin>
                                 <Insets left="10.0" top="5.0" />
                             </VBox.margin>
+                            <font>
+                                <Font name="System Bold"/>
+                            </font>
                         </Label>
                         <ListView fx:id="inboxList" maxHeight="1.7976931348623157E308" prefHeight="330.0" prefWidth="398.0" focusTraversable="true">
                             <VBox.margin>
@@ -55,13 +64,29 @@
                 <VBox layoutX="409.0" layoutY="41.0" prefHeight="359.0" prefWidth="315.0">
                     <children>
                         <Separator prefHeight="5.0" prefWidth="330.0" />
-                        <Label text="Date:" />
+                        <Label text="Date:">
+                        <font>
+                            <Font name="System Bold"/>
+                        </font>
+                        </Label>
                         <Label fx:id="mailDate"/>
-                        <Label text="Subject:" />
+                        <Label text="Subject:">
+                        <font>
+                            <Font name="System Bold"/>
+                        </font>
+                        </Label>
                         <Label fx:id="mailSubject"/>
-                        <Label text="From:" />
+                        <Label text="From:">
+                        <font>
+                            <Font name="System Bold"/>
+                        </font>
+                        </Label>
                         <Label fx:id="senderEmail"/>
-                        <Label text="To:" />
+                        <Label text="To:">
+                        <font>
+                            <Font name="System Bold"/>
+                        </font>
+                        </Label>
                         <Label fx:id="receiverEmail"/>
                         <Separator prefHeight="5.0" prefWidth="330.0" />
                         <Label fx:id="mailText"/>
@@ -73,12 +98,32 @@
                     <children>
                         <ButtonBar prefHeight="50.0" prefWidth="619.0">
                             <buttons>
-                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="139.0" text="DELETE" onAction="#onDeleteButtonClick"/>
-                                <Button mnemonicParsing="false" text="REPLY" onAction="#onReplyButtonClick"/>
-                                <Button mnemonicParsing="false" text="REPLY ALL" onAction="#onReplyAllButtonClick"/>
-                                <Button mnemonicParsing="false" text="FORWARD" onAction="#onForwardButtonClick"/>
+                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="139.0" text="DELETE" onAction="#onDeleteButtonClick">
+                                    <font>
+                                        <Font name="System Bold"/>
+                                    </font>
+                                </Button>
+                                <Button mnemonicParsing="false" text="REPLY" onAction="#onReplyButtonClick">
+                                    <font>
+                                        <Font name="System Bold"/>
+                                    </font>
+                                </Button>
+                                <Button mnemonicParsing="false" text="REPLY ALL" onAction="#onReplyAllButtonClick">
+                                    <font>
+                                        <Font name="System Bold"/>
+                                    </font>
+                                </Button>
+                                <Button mnemonicParsing="false" text="FORWARD" onAction="#onForwardButtonClick">
+                                <font>
+                                    <Font name="System Bold"/>
+                                </font>
+                                </Button>
                                 <Separator minWidth="43.0" orientation="VERTICAL" prefHeight="44.0"/>
-                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="161.0" text="NEW MAIL" onAction="#onNewMailButtonClick"/>
+                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="161.0" text="NEW MAIL" onAction="#onNewMailButtonClick">
+                                    <font>
+                                        <Font name="System Bold"/>
+                                    </font>
+                                </Button>
                             </buttons>
                         </ButtonBar>
                     </children>

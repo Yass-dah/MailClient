@@ -88,7 +88,7 @@ public class Client {
             if(socket != null)
                 socket.close();
         } catch (IOException e) {
-            System.err.println(e);
+            System.err.println(e.getMessage());
         }
         connected = false;
     }
@@ -102,6 +102,7 @@ public class Client {
             connected = "OK".equals(response);
         } catch (IOException e) {
             connected = false;
+            System.err.println(e.getMessage());
         }
         return getConnected();
     }
@@ -116,7 +117,7 @@ public class Client {
             response = in.readLine();
         } catch (IOException e) {
             connected = false;
-            System.err.println(e);
+            System.err.println(e.getMessage());
         }
         return "OK".equals(response);
     }
@@ -130,7 +131,7 @@ public class Client {
             response = in.readLine();
         } catch (IOException e) {
             connected = false;
-            System.err.println(e);
+            System.err.println(e.getMessage());
         }
         return "MAIL_SENT".equals(response);
     }
@@ -147,7 +148,7 @@ public class Client {
                 mails.add(parseMail(line));
         } catch(IOException e){
             connected = false;
-            System.err.println(e);
+            System.err.println(e.getMessage());
         }
         return mails;
     }
@@ -161,7 +162,7 @@ public class Client {
             response = in.readLine();
         } catch (IOException e) {
             connected = false;
-            System.err.println(e);
+            System.err.println(e.getMessage());
         }
         return "MAIL_DELETED".equals(response);
     }

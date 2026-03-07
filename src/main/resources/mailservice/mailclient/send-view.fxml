@@ -7,21 +7,54 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.text.Font?>
 <VBox prefHeight="400.0" prefWidth="488.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mailservice.mailclient.controller.SenderController">
     <children>
-        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="400.0" prefWidth="511.0" VBox.vgrow="ALWAYS">
+        <AnchorPane style="-fx-background-color:#ffffff;-fx-focus-color: black" maxHeight="-1.0" maxWidth="-1.0" prefHeight="400.0" prefWidth="511.0" VBox.vgrow="ALWAYS">
             <children>
-                <Label layoutX="31.0" layoutY="34.0" text="Subject:" />
-                <Label layoutX="31.0" layoutY="70.0" text="From:" />
-                <Label layoutX="31.0" layoutY="110.0" text="To:" />
-                <TextField fx:id="mailSubject" layoutX="87.0" layoutY="30.0" prefHeight="26.0" prefWidth="364.0"/>
-                <Label fx:id="senderEmail" layoutX="87.0" layoutY="66.0" prefHeight="26.0" prefWidth="364.0" />
-                <TextField fx:id="receiverEmail" layoutX="87.0" layoutY="106.0" prefHeight="26.0" prefWidth="364.0"/>
-                <TextField fx:id="mailText" layoutX="39.0" layoutY="175.0" prefHeight="176.0" prefWidth="414.0" />
-                <Separator layoutX="23.0" layoutY="168.0" prefHeight="6.0" prefWidth="436.0" />
-                <Label fx:id="emptyWarning" layoutX="155.0" layoutY="5.0" prefHeight="18.0" prefWidth="250.0" textFill="RED"/>
-                <Button fx:id="submit" layoutX="218.0" layoutY="360.0" mnemonicParsing="false" text="SEND" onAction="#onSendButtonClick"/>
-                <Label fx:id="formatWarning" layoutX="132.0" layoutY="140.0" prefHeight="18.0" prefWidth="250.0" textFill="RED"/>
+                <Label layoutX="31.0" layoutY="34.0" text="Subject:">
+                    <font>
+                        <Font name="System Bold"/>
+                    </font>
+                </Label>
+                <Label layoutX="31.0" layoutY="70.0" text="From:">
+                    <font>
+                        <Font name="System Bold"/>
+                    </font>
+                </Label>
+                <Label layoutX="31.0" layoutY="110.0" text="To:">
+                    <font>
+                        <Font name="System Bold"/>
+                    </font>
+                </Label>
+                <TextField fx:id="mailSubject" layoutX="87.0" layoutY="30.0" prefHeight="26.0" prefWidth="364.0">
+                    <font>
+                        <Font name="System Bold"/>
+                    </font>
+                </TextField>
+                <Label fx:id="senderEmail" layoutX="87.0" layoutY="66.0" prefHeight="26.0" prefWidth="364.0">
+                    <font>
+                        <Font name="System Bold"/>
+                    </font>
+                </Label>
+                <TextField fx:id="receiverEmail" layoutX="87.0" layoutY="106.0" prefHeight="26.0" prefWidth="364.0">
+                    <font>
+                        <Font name="System Bold"/>
+                    </font>
+                </TextField>
+                <TextField fx:id="mailText" layoutX="39.0" layoutY="175.0" prefHeight="176.0" prefWidth="414.0">
+                    <font>
+                        <Font name="System Bold"/>
+                    </font>
+                </TextField>
+                <Separator layoutX="23.0" layoutY="168.0" prefHeight="6.0" prefWidth="436.0"/>
+                <Label fx:id="emptyWarning" layoutX="152.0" layoutY="5.0" prefHeight="18.0" prefWidth="250.0" textFill="RED"/>
+                <Button fx:id="submit" layoutX="218.0" layoutY="360.0" mnemonicParsing="false" text="SEND" onAction="#onSendButtonClick">
+                    <font>
+                        <Font name="System Bold"/>
+                    </font>
+                </Button>
+                <Label fx:id="formatWarning" layoutX="130.0" layoutY="140.0" prefHeight="18.0" prefWidth="250.0" textFill="RED"/>
             </children>
         </AnchorPane>
     </children>

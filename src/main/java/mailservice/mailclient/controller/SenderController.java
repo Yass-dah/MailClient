@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import mailservice.mailclient.MailApp;
 import mailservice.mailclient.model.Mail;
 import mailservice.mailclient.model.MailModel;
@@ -62,6 +63,17 @@ public class SenderController {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public void setCloseButtonClick() {
+        Stage stage = (Stage) submit.getScene().getWindow();
+        stage.setOnCloseRequest(event -> {
+            try {
+                main.inbox();
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
+        });
     }
 
     // Gestori eventi

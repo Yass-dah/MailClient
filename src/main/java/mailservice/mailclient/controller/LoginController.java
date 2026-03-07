@@ -55,7 +55,7 @@ public class LoginController {
             try {
                 conn.join();
             } catch (InterruptedException e) {
-                System.err.println(e);
+                System.err.println(e.getMessage());
             }
             if (!client.getConnected()){
                 serverWarning.setText("can't reach server");
@@ -67,7 +67,6 @@ public class LoginController {
         else {
             initUser(email);
             model.setInbox(FXCollections.observableArrayList(client.getInbox(email)));
-            System.out.println("cioadishfh");
             try {
                 main.inbox();
             } catch(IOException e) {
@@ -79,6 +78,4 @@ public class LoginController {
     public void initUser(String email){
         if(model != null) model.setEmail(email);
     }
-
-
 }
