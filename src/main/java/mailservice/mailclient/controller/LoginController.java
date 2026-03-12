@@ -47,26 +47,19 @@ public class LoginController {
             return;
         }
         formatWarning.setText("");
-        System.out.println(client.getConnected());
-        boolean mailExists = client.getConnected() && client.checkEmail(email);
-        if(!client.getConnected()) {
-            Thread conn = new Thread(() -> client.connect());
-            conn.start();
-            try {
-                conn.join();
-            } catch (InterruptedException e) {
-                System.err.println(e.getMessage());
-            }
-            if (!client.getConnected()){
-                serverWarning.setText("can't reach server");
-                return;
-            }
+        if(!client.getConnectionLooper().isReachable()) {
+            serverWarning.setText("can't reach server");
+            return;
         }
-        if(!mailExists)
+        boolean emailExists = client.checkEmail(email);
+        if(!emailExists) {
             serverWarning.setText("Inexistent email");
-        else {
+        } else {
+            System.out.println("ciao " + model.getInbox());
             initUser(email);
+            System.out.println("ciaoo " + model.getInbox());
             model.setInbox(FXCollections.observableArrayList(client.getInbox(email)));
+            System.out.println("ciaooo " + model.getInbox());
             try {
                 main.inbox();
             } catch(IOException e) {

@@ -1,5 +1,6 @@
 package mailservice.mailclient.controller;
 
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -25,6 +26,9 @@ public class InboxController {
 
     @FXML
     private ListView<Mail> inboxList;
+
+    @FXML
+    private Label mailId;
 
     @FXML
     private Label mailDate;
@@ -80,7 +84,15 @@ public class InboxController {
     }
 
     @FXML
-    protected void onDeleteButtonClick() {}
+    protected void onDeleteButtonClick() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if(client.deleteMail(model.getEmail(), Long.parseLong(mailId.getText())))
+                    Platform.runLater(() -> model.removeMail(Long.parseLong(mailId.getText())));
+            }
+        }).start();
+    }
 
     @FXML
     protected void onReplyButtonClick() {
@@ -139,6 +151,7 @@ public class InboxController {
         currentEmail.textProperty().bind(model.emailProperty());
         inboxList.getSelectionModel().selectedItemProperty().addListener((obs, oldMail, newMail) -> {
             if(oldMail != null){
+                mailId.textProperty().unbind();
                 mailDate.textProperty().unbind();
                 mailSubject.textProperty().unbind();
                 senderEmail.textProperty().unbind();
@@ -146,6 +159,7 @@ public class InboxController {
                 mailText.textProperty().unbind();
             }
             if(newMail != null){
+                mailId.textProperty().bind(newMail.idProperty().asString());
                 mailDate.textProperty().bind(newMail.dateProperty().asString());
                 mailSubject.textProperty().bind(newMail.subjectProperty());
                 senderEmail.textProperty().bind(newMail.fromProperty());

@@ -16,7 +16,7 @@
             <Font name="System bold" size="18.0" />
           </font>
         </Label>
-        <TextField fx:id="email" layoutX="68.0" layoutY="127.0" prefHeight="26.0" prefWidth="283.0">
+        <TextField style="-fx-background-color:#e6e6e6" fx:id="email" layoutX="68.0" layoutY="127.0" prefHeight="26.0" prefWidth="283.0">
         <font>
           <Font name="System Bold"/>
         </font>

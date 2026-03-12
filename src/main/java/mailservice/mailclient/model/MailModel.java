@@ -40,8 +40,8 @@ public class MailModel {
         inbox.add(mail);
     }
 
-    public void removeMail(Mail mail) {
-        inbox.remove(mail);
+    public void removeMail(long id) {
+        inbox.removeIf(mail -> mail.getId() == id);
     }
 
     // forward mail initializer
@@ -73,6 +73,15 @@ public class MailModel {
         Mail mail = new Mail();
         mail.setFrom(email.get());
         return mail;
+    }
+
+    public long getLastId(){
+        long max = -1;
+        if(inbox != null) {
+            for (Mail mail : inbox)
+                if (mail.getId() > max) max = mail.getId();
+        }
+        return max;
     }
 
     // stampa

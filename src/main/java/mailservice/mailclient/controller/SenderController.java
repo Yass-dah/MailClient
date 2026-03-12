@@ -11,6 +11,7 @@ import mailservice.mailclient.model.MailModel;
 import mailservice.mailclient.network.Client;
 
 import java.io.IOException;
+import java.lang.String;
 
 public class SenderController {
     private static final String receiversFormat =
@@ -33,6 +34,9 @@ public class SenderController {
 
     @FXML
     private TextField mailText;
+
+    @FXML
+    private Button inbox;
 
     @FXML
     private Button submit;
@@ -78,12 +82,33 @@ public class SenderController {
 
     // Gestori eventi
     @FXML
+    protected void onInboxButtonClick() {
+        try{
+            main.inbox();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    @FXML
     protected void onSendButtonClick() {
         boolean validSubject = mailSubject != null && !mailSubject.getText().isEmpty();
         boolean validBody = mailText != null && !mailText.getText().isEmpty();
         boolean validReceivers = receiverEmail != null && receiverEmail.getText().matches(receiversFormat);
-        if(!validReceivers) formatWarning.setText("Please enter valid addresses divided by a ','");
-        else if (!validSubject || !validBody) emptyWarning.setText("Subject and Body cannot be empty");
+        if(!validReceivers) {
+            formatWarning.setText("Please enter valid addresses divided by a ','");
+            return;
+        }
+        if (!validSubject || !validBody) {
+            emptyWarning.setText("Subject and Body cannot be empty");
+            return;
+        }
+        boolean mailExists = client.getConnectionLooper().isReachable();
+        String[] emails = receiverEmail.getText().split(",");
+        for(String e : emails)
+            mailExists = mailExists && client.checkEmail(e);
+        if(!mailExists)
+            formatWarning.setText("One or more of the following emails were not found");
         else{
             try {
                 new Thread(new Runnable() {

@@ -26,16 +26,17 @@ public class MailApp extends Application {
         model = new MailModel();
         mainStage = stage;
         client = new Client();
-        new Thread(() -> client.connect()).start();
         connectionChecker = new Thread(client.getConnectionLooper());
         connectionChecker.start();
         login();
+        end();
     }
 
     public void login() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MailApp.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         LoginController controller = fxmlLoader.getController();
+        client.getConnectionLooper().setModel(null);
         controller.setMain(this);
         controller.setModel(model);
         controller.setClient(client);
@@ -53,6 +54,7 @@ public class MailApp extends Application {
         controller.setMain(this);
         controller.setModel(model);
         controller.setClient(client);
+        client.getConnectionLooper().setModel(model);
         controller.bindProperties();
         mainStage.setTitle("Your mail inbox");
         mainStage.setScene(scene);
@@ -76,7 +78,12 @@ public class MailApp extends Application {
         mainStage.centerOnScreen();
     }
 
-    public static void main(String[] args) {
-        launch();
+    public void end(){
+        mainStage.setOnCloseRequest(event -> {
+            client.disconnect();
+            client.getConnectionLooper().stop();
+        });
     }
+
+    public static void main(String[] args) { launch(); }
 }

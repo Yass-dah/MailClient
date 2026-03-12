@@ -54,7 +54,7 @@
                                 <Font name="System Bold"/>
                             </font>
                         </Label>
-                        <ListView fx:id="inboxList" maxHeight="1.7976931348623157E308" prefHeight="330.0" prefWidth="398.0" focusTraversable="true">
+                        <ListView style="-fx-background-color:#d8d8d8" fx:id="inboxList" maxHeight="1.7976931348623157E308" prefHeight="330.0" prefWidth="398.0" focusTraversable="true">
                             <VBox.margin>
                                 <Insets left="5.0" right="5.0" top="5.0" />
                             </VBox.margin>
@@ -64,6 +64,7 @@
                 <VBox layoutX="409.0" layoutY="41.0" prefHeight="359.0" prefWidth="315.0">
                     <children>
                         <Separator prefHeight="5.0" prefWidth="330.0" />
+                        <Label fx:id="mailId" text="" visible="false"/>
                         <Label text="Date:">
                         <font>
                             <Font name="System Bold"/>
