@@ -44,7 +44,7 @@ public class MailModel {
         inbox.removeIf(mail -> mail.getId() == id);
     }
 
-    // forward mail initializer
+    // inizializzatore per forward
     public Mail getForwardMail(String subject, String body) {
         Mail mail = new Mail();
         mail.setFrom(email.get());
@@ -53,34 +53,37 @@ public class MailModel {
         return mail;
     }
 
-    // reply mail initializer
-    public Mail getReplyMail(String to) {
+    // inizializzatore per reply
+    public Mail getReplyMail(String to, String subject) {
         Mail mail = new Mail();
         mail.setFrom(email.get());
         mail.setTo(to);
+        mail.setSubject("Risposta: " + subject);
         return mail;
     }
 
-    // reply all mail initializer
-    public Mail getReplyAllMail(String to) {
+    // inizializzatore per reply all
+    public Mail getReplyAllMail(String to, String subject) {
         Mail mail = new Mail();
         mail.setFrom(email.get());
         mail.setTo(to);
+        mail.setSubject("Risposta: " + subject);
         return mail;
     }
 
+    // inizializzatore per new mail
     public Mail getSendMail() {
         Mail mail = new Mail();
         mail.setFrom(email.get());
         return mail;
     }
 
+    // max id delle inbox (ovvero ultimo)
     public long getLastId(){
         long max = -1;
-        if(inbox != null) {
+        if(inbox != null)
             for (Mail mail : inbox)
                 if (mail.getId() > max) max = mail.getId();
-        }
         return max;
     }
 

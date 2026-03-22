@@ -38,7 +38,7 @@ public class LoginController {
         this.client = client;
     }
 
-    // Gestori eventi
+    // Gestore login
     @FXML
     protected void onLoginButtonClick() {
         String email = this.email.getText();
@@ -55,11 +55,8 @@ public class LoginController {
         if(!emailExists) {
             serverWarning.setText("Inexistent email");
         } else {
-            System.out.println("ciao " + model.getInbox());
             initUser(email);
-            System.out.println("ciaoo " + model.getInbox());
             model.setInbox(FXCollections.observableArrayList(client.getInbox(email)));
-            System.out.println("ciaooo " + model.getInbox());
             try {
                 main.inbox();
             } catch(IOException e) {
@@ -68,6 +65,7 @@ public class LoginController {
         }
     }
 
+    // inizializzatore email per login
     public void initUser(String email){
         if(model != null) model.setEmail(email);
     }

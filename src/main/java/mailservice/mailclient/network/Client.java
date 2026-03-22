@@ -9,7 +9,6 @@ import java.io.*;
 import java.net.Socket;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Client {
     private static final String serverHost = "localhost";
@@ -68,7 +67,7 @@ public class Client {
                 if(status && model != null)
                     Platform.runLater(()-> model.getInbox().addAll(updateInbox(model.getEmail(), model.getLastId())));
                 try {
-                    Thread.sleep(2500);
+                    Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     break;

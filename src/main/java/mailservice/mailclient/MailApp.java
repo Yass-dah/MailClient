@@ -18,20 +18,20 @@ public class MailApp extends Application {
     private Stage mainStage;
     private MailModel model;
     private Client client;
-    private Thread connectionChecker;
 
-    // start con la pagina di login, scena = login
+    // start, new model & client
     @Override
     public void start(Stage stage) throws IOException {
         model = new MailModel();
         mainStage = stage;
         client = new Client();
-        connectionChecker = new Thread(client.getConnectionLooper());
+        Thread connectionChecker = new Thread(client.getConnectionLooper());
         connectionChecker.start();
         login();
         end();
     }
 
+    // scena = login
     public void login() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MailApp.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
@@ -78,6 +78,7 @@ public class MailApp extends Application {
         mainStage.centerOnScreen();
     }
 
+    // setAction per chiusura window
     public void end(){
         mainStage.setOnCloseRequest(event -> {
             client.disconnect();

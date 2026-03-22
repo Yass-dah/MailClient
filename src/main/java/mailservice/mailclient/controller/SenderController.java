@@ -44,40 +44,17 @@ public class SenderController {
     @FXML
     private Label formatWarning;
 
-    // Getters & Setters
-    public MailApp getMain() {
-        return main;
-    }
-
+    // Setters
     public void setMain(MailApp main) {
         this.main = main;
-    }
-
-    public MailModel getModel() {
-        return model;
     }
 
     public void setModel(MailModel model) {
         this.model = model;
     }
 
-    public Client getClient() {
-        return client;
-    }
-
     public void setClient(Client client) {
         this.client = client;
-    }
-
-    public void setCloseButtonClick() {
-        Stage stage = (Stage) submit.getScene().getWindow();
-        stage.setOnCloseRequest(event -> {
-            try {
-                main.inbox();
-            } catch (IOException e) {
-                System.err.println(e.getMessage());
-            }
-        });
     }
 
     // Gestori eventi
@@ -90,6 +67,7 @@ public class SenderController {
         }
     }
 
+    // NOTA: non gestisce spam su 1 o più dest. uguali
     @FXML
     protected void onSendButtonClick() {
         boolean validSubject = mailSubject != null && !mailSubject.getText().isEmpty();
@@ -111,12 +89,7 @@ public class SenderController {
             formatWarning.setText("One or more of the following emails were not found");
         else{
             try {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        client.sendMail(model.getEmail(), receiverEmail.getText(), mailSubject.getText(), mailText.getText());
-                    }
-                }).start();
+                new Thread(() -> client.sendMail(model.getEmail(), receiverEmail.getText(), mailSubject.getText(), mailText.getText())).start();
                 main.inbox();
             } catch (IOException e) {
                 System.err.println(e.getMessage());
@@ -124,10 +97,15 @@ public class SenderController {
         }
     }
 
-    public void initMail(Mail mail){
+    // inizializzatore mail
+    public void initMail(Mail mail) {
         senderEmail.setText(model.getEmail());
         mailSubject.setFocusTraversable(mail.getSubject() == null);
-        submit.setText(mail.getSubject() == null ? "SEND" : "FORWARD");
+        if(mail.getSubject() != null && mail.getBody() == null){
+            submit.setText("REPLY");
+            receiverEmail.setFocusTraversable(false);
+        } else if(mail.getSubject() != null && mail.getBody() != null)
+            submit.setText("FORWARD");
         receiverEmail.setText(mail.getTo() == null ? "" : mail.getTo());
         mailSubject.setText(mail.getSubject() == null ? "" : mail.getSubject());
         mailText.setText(mail.getBody() == null ? "" : mail.getBody());

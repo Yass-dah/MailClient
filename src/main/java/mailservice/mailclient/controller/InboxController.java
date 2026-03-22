@@ -45,26 +45,14 @@ public class InboxController {
     @FXML
     private Label mailText;
 
-    // Getters & Setters
-    public MailApp getMain() {
-        return main;
-    }
-
+    // Setters
     public void setMain(MailApp main) {
         this.main = main;
-    }
-
-    public MailModel getModel() {
-        return model;
     }
 
     public void setModel(MailModel model) {
         this.model = model;
         inboxList.setItems(model.getInbox()); // Binding
-    }
-
-    public Client getClient() {
-        return client;
     }
 
     public void setClient(Client client) {
@@ -97,7 +85,7 @@ public class InboxController {
     @FXML
     protected void onReplyButtonClick() {
         if(mailText.getText() == null || mailText.getText().isBlank()) return;
-        Mail mail = model.getReplyMail(senderEmail.getText());
+        Mail mail = model.getReplyMail(senderEmail.getText(), mailSubject.getText());
         try{
             main.sender(mail);
         } catch (IOException e){
@@ -108,7 +96,7 @@ public class InboxController {
     @FXML
     protected void onReplyAllButtonClick() {
         if(mailText.getText() == null || mailText.getText().isBlank()) return;
-        Mail mail = model.getReplyAllMail(senderEmail.getText()+","+receiverEmail.getText());
+        Mail mail = model.getReplyAllMail(senderEmail.getText()+","+receiverEmail.getText(), mailSubject.getText());
         try{
             main.sender(mail);
         } catch (IOException e){
@@ -137,9 +125,9 @@ public class InboxController {
         }
     }
 
+    // binding per visual
     public void bindProperties(){
         if(model == null) return;
-        System.out.println(model.getInbox());
         if (client != null && client.getConnectionLooper() != null) {
             connection.setTextFill(Paint.valueOf(client.getConnectionLooper().isReachable() ? "#06A106" : "#d70000"));
             connection.setText(client.getConnectionLooper().isReachable() ? "Online" : "Offline");
