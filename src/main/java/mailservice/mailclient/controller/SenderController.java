@@ -3,6 +3,7 @@ package mailservice.mailclient.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import mailservice.mailclient.MailApp;
 import mailservice.mailclient.model.Mail;
@@ -32,7 +33,7 @@ public class SenderController {
     private TextField receiverEmail;
 
     @FXML
-    private TextField mailText;
+    private TextArea mailText;
 
     @FXML
     private Button submit;

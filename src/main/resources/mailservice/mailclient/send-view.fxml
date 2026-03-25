@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.TextArea?>
 <VBox prefHeight="400.0" prefWidth="488.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mailservice.mailclient.controller.SenderController">
     <children>
         <AnchorPane style="-fx-background-color:#ffffff;-fx-focus-color: grey" maxHeight="-1.0" maxWidth="-1.0" prefHeight="400.0" prefWidth="511.0" VBox.vgrow="ALWAYS">
@@ -42,11 +43,11 @@
                         <Font name="System Bold"/>
                     </font>
                 </TextField>
-                <TextField style="-fx-background-color:#e6e6e6" fx:id="mailText" layoutX="39.0" layoutY="175.0" prefHeight="176.0" prefWidth="414.0">
+                <TextArea style="-fx-background-color:#e6e6e6" wrapText="true" fx:id="mailText" layoutX="39.0" layoutY="175.0" prefHeight="176.0" prefWidth="414.0">
                     <font>
                         <Font name="System Bold"/>
                     </font>
-                </TextField>
+                </TextArea>
                 <Separator layoutX="23.0" layoutY="168.0" prefHeight="6.0" prefWidth="436.0"/>
                 <Label fx:id="emptyWarning" layoutX="152.0" layoutY="5.0" prefHeight="18.0" prefWidth="250.0" textFill="RED"/>
                 <Button layoutX="35.0" layoutY="360.0" mnemonicParsing="false" text="INBOX" onAction="#onInboxButtonClick">

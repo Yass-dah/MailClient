@@ -90,7 +90,7 @@
                         </Label>
                         <Label fx:id="receiverEmail"/>
                         <Separator prefHeight="5.0" prefWidth="330.0" />
-                        <Label fx:id="mailText"/>
+                        <Label fx:id="mailText" wrapText="true"/>
                     </children>
                 </VBox>
                 <Separator layoutX="398.0" layoutY="41.0" orientation="VERTICAL" prefHeight="359.0" prefWidth="10.0" />
