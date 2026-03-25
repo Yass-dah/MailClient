@@ -11,7 +11,7 @@ import mailservice.mailclient.network.Client;
 import java.io.IOException;
 
 public class LoginController {
-    private static final String emailFormat = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+    private static final String emailFormat = "^[A-Za-z0-9+.]+@[A-Za-z0-9.]+\\.[A-Za-z]{2,}$";
     private MailApp main;
     private MailModel model;
     private Client client;
@@ -56,7 +56,7 @@ public class LoginController {
             serverWarning.setText("Inexistent email");
         } else {
             initUser(email);
-            model.setInbox(FXCollections.observableArrayList(client.getInbox(email)));
+            initInbox(email);
             try {
                 main.inbox();
             } catch(IOException e) {
@@ -65,8 +65,12 @@ public class LoginController {
         }
     }
 
-    // inizializzatore email per login
+    // inizializzatori
     public void initUser(String email){
         if(model != null) model.setEmail(email);
+    }
+
+    public void initInbox(String email){
+        if(model != null) model.setInbox(FXCollections.observableArrayList(client.getInbox(email)));
     }
 }

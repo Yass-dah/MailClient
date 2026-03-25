@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import mailservice.mailclient.MailApp;
 import mailservice.mailclient.model.Mail;
 import mailservice.mailclient.model.MailModel;
@@ -15,7 +14,7 @@ import java.lang.String;
 
 public class SenderController {
     private static final String receiversFormat =
-            "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}(,[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})*$";
+            "^[a-zA-Z0-9.]+@[a-zA-Z0-9.]+\\.[a-zA-Z]{2,}(,[a-zA-Z0-9.]+@[a-zA-Z0-9.]+\\.[a-zA-Z]{2,})*$";
     private MailApp main;
     private MailModel model;
     private Client client;
@@ -34,9 +33,6 @@ public class SenderController {
 
     @FXML
     private TextField mailText;
-
-    @FXML
-    private Button inbox;
 
     @FXML
     private Button submit;

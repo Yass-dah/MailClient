@@ -62,7 +62,6 @@ public class Client {
             while (isRunning()) {
                 boolean status = checkConn();
                 Platform.runLater(() -> reachable.set(status));
-
                 System.out.println("checking server activity..." + reachable.get());
                 if(status && model != null)
                     Platform.runLater(()-> model.getInbox().addAll(updateInbox(model.getEmail(), model.getLastId())));
@@ -178,7 +177,7 @@ public class Client {
 
     private Mail parseMail(String line) {
         String[] parts = line.split("\\|");
-
+        
         if(parts.length < 6) return null;
         Mail mail = new Mail();
         mail.setId(Long.parseLong(parts[0]));
