@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class Client {
     private static final String serverHost = "localhost";
-    private static final int serverPort = 5000;
+    private static final int serverPort = 50000;
     private ConnectionLooper conn = new ConnectionLooper();
 
     private Socket socket;
