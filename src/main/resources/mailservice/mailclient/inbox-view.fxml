@@ -66,27 +66,27 @@
                         <Separator prefHeight="5.0" prefWidth="330.0" />
                         <Label fx:id="mailId" text="" visible="false"/>
                         <Label text="Date:">
-                        <font>
-                            <Font name="System Bold"/>
-                        </font>
+                            <font>
+                                <Font name="System Bold"/>
+                            </font>
                         </Label>
                         <Label fx:id="mailDate"/>
                         <Label text="Subject:">
-                        <font>
-                            <Font name="System Bold"/>
-                        </font>
+                            <font>
+                                <Font name="System Bold"/>
+                            </font>
                         </Label>
                         <Label fx:id="mailSubject"/>
                         <Label text="From:">
-                        <font>
-                            <Font name="System Bold"/>
-                        </font>
+                            <font>
+                                <Font name="System Bold"/>
+                            </font>
                         </Label>
                         <Label fx:id="senderEmail"/>
                         <Label text="To:">
-                        <font>
-                            <Font name="System Bold"/>
-                        </font>
+                            <font>
+                                <Font name="System Bold"/>
+                            </font>
                         </Label>
                         <Label fx:id="receiverEmail"/>
                         <Separator prefHeight="5.0" prefWidth="330.0" />
@@ -99,7 +99,7 @@
                     <children>
                         <ButtonBar prefHeight="50.0" prefWidth="619.0">
                             <buttons>
-                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="139.0" text="DELETE" onAction="#onDeleteButtonClick">
+                                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="139.0" text="DELETE" onAction="#onDeleteButtonClick"  textFill="#c82417">
                                     <font>
                                         <Font name="System Bold"/>
                                     </font>
@@ -115,9 +115,9 @@
                                     </font>
                                 </Button>
                                 <Button mnemonicParsing="false" text="FORWARD" onAction="#onForwardButtonClick">
-                                <font>
-                                    <Font name="System Bold"/>
-                                </font>
+                                    <font>
+                                        <Font name="System Bold"/>
+                                    </font>
                                 </Button>
                                 <Separator minWidth="43.0" orientation="VERTICAL" prefHeight="44.0"/>
                                 <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="161.0" text="NEW MAIL" onAction="#onNewMailButtonClick">

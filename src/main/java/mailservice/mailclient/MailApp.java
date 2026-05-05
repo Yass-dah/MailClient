@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import mailservice.mailclient.controller.InboxController;
 import mailservice.mailclient.controller.LoginController;
 import mailservice.mailclient.controller.SenderController;
@@ -25,6 +26,8 @@ public class MailApp extends Application {
         model = new MailModel();
         mainStage = stage;
         client = new Client();
+        mainStage.initStyle(StageStyle.UTILITY);
+        mainStage.setResizable(false);
         Thread connectionChecker = new Thread(client.getConnectionLooper());
         connectionChecker.start();
         login();

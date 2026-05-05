@@ -52,7 +52,7 @@ public class InboxController {
 
     public void setModel(MailModel model) {
         this.model = model;
-        inboxList.setItems(model.getInbox()); // Binding
+        inboxList.setItems(model.getInbox());
     }
 
     public void setClient(Client client) {

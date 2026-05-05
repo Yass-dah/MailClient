@@ -17,14 +17,14 @@
           </font>
         </Label>
         <TextField style="-fx-background-color:#e6e6e6" fx:id="email" layoutX="68.0" layoutY="127.0" prefHeight="26.0" prefWidth="283.0">
-        <font>
-          <Font name="System Bold"/>
-        </font>
+          <font>
+            <Font name="System Bold"/>
+          </font>
         </TextField>
         <Button layoutX="187.0" layoutY="190.0" mnemonicParsing="false" text="Login" onAction="#onLoginButtonClick">
-        <font>
-          <Font name="System Bold"/>
-        </font>
+          <font>
+            <Font name="System Bold"/>
+          </font>
         </Button>
         <Label fx:id="formatWarning" layoutX="88.0" layoutY="95.0" textFill="#d70000">
           <font>
