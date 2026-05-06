@@ -6,7 +6,7 @@ This project is managed with Maven. To run it:
 mvn clean javafx:run
 ```
 
-It works as its purpose only if you have the MailServer one installed [https://github.com/Yass-dah/MailServer]
+It works as its purpose only if you have the [MailServer one](https://github.com/Yass-dah/MailServer) installed
 
 ### Possible ameliorations to this project:
 -  email domain registration
