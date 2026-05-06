@@ -1,5 +1,5 @@
 ﻿# MailClient
-A Mail client Frontend App with JavaFX, to send mails and manage mails received with MVC pattern use.
+A simple Mail client Frontend App with JavaFX, to send mails and manage mails received with MVC pattern use.
 
 This project is managed with Maven. To run it:
 ```
